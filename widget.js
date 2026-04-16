@@ -45,18 +45,18 @@ const TITLEWINDOW = {
                         </div>
                         <div id="finaf-title-wrapper">
                           <div class="finaf-column" v-for="(values, role) in records">
-                            <h3 class="versal-bold">{{ getRoleTranslation(role) }}</h3>
-                            <div v-for="(titleList, format) in values">
-                              <h4 class="versal-bold">{{ getFormatTranslation(format) }}
+                            <h3>{{ getRoleTranslation(role).toUpperCase() }}</h3>
+                            <div class="finaf-format-header" v-for="(titleList, format) in values">
+                              <h4>{{ getFormatTranslation(format).toUpperCase() }}
                                 <span :class="'fa-solid fa-' + fontTexts[format]"
                               </h4>
-                              <ul class="finaf-titles-list">
+                              <ul class="finaf-title-list">
                                 <li v-for="(titleData) in renderTitleList(titleList, FormatListsStatus[role][format])">
                                   <a :href="titleData.url" target="_blank">{{ shortenTitle(titleData.title) }}</a> ({{ titleData.year }})
                                 </li>
                               </ul>
-                              <button class="toggle-text versal" @click="toggleButton($event, FormatListsStatus, role, format)">
-                                {{ getToggleButtonText(FormatListsStatus[role][format]) }}
+                              <button v-if="showButton(role, format)" @click="toggleButton($event, FormatListsStatus, role, format)">
+                                {{ getToggleButtonText(FormatListsStatus[role][format]).toUpperCase() }}
                                 <i :class="'fa-solid fa-chevron-' + (FormatListsStatus[role][format] ? 'up' : 'down')"></i>
                               </button>
                             </div>
@@ -64,7 +64,7 @@ const TITLEWINDOW = {
                         </div>
                       </div>
                       <div id="finaf-search">
-                        <a class="versal" :href=natLibURL target="_blank">{{natLibText}}</a>
+                        <a id="finaf-link" :href=natLibURL target="_blank">{{natLibText}}</a>
                       </div>
                     </div>
                   </div>
@@ -76,6 +76,9 @@ const TITLEWINDOW = {
         }
       },
       methods: {
+        showButton(role, format) {
+          return TITLEWINDOW.renderedTitles[role][format].length > 5;
+        },
         getRoleTranslation(role) {
           return TITLEWINDOW.translatedLookforFields[role][TITLEWINDOW.language]
         },

@@ -17,26 +17,46 @@
   background-color: var(--light-color);
 }
 
-#finaf-heading {
+/* #finaf-heading {
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+#finaf-heading .accordion-button {
+  font-weight: bold;
+  font-size: 1.2rem;
+} */
+
+#finaf-heading .accordion-button {
+  background-color: var(--white-color);
+  padding-top: 0.5rem;
+  padding-right: 1rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  z-index: 0;
+  height: 40px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-bottom: 2px solid var(--secondary-medium-color);
 }
 
 #finaf-header-button {
-  background-color: var(--white-color) !important;
+  background-color: var(--white-color);
 }
 
-#finaf-panel:after {
+/* #finaf-panel:after {
   content: "";
   display: table;
   clear: both;
-}
+} */
  
-.finaf-column > a.toggle-text {
+/* .finaf-column > a.toggle-text {
   color: #333333;
   cursor: pointer;
   text-decoration: none;
-}
+} */
 
 #finaf-note {
   background-color: var(--white-color);
@@ -68,8 +88,20 @@
   padding-right: 8px;
 }
 
-#finaf-title-wrapper > .fa-solid {
-  margin-left: 6px;
+.finaf-format-header {
+  margin-bottom: 1rem;
+}
+
+.finaf-format-header > ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.finaf-format-header > button {
+  padding: 0;
+  border: none;
+  background: none;
 }
 
 #finaf-search {
@@ -81,7 +113,6 @@
   font-size: 1.2rem;
 }
 
-.finaf-titles-list {
-    list-style: none;
-    padding-left: 0;
+#finaf-link {
+  font-weight: lighter;
 }
