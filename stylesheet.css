@@ -13,7 +13,6 @@
 }
 
 .finaf-column {
-  font-size: 1.2rem;
   font-weight: bold;
   padding-left: 1rem;
   padding-top: 1rem;
@@ -67,6 +66,10 @@
   padding: 0;
   border: none;
   background: none;
+}
+
+.finaf-title-year {
+  font-weight: lighter;
 }
 
 #finaf-search {

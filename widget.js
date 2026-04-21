@@ -4,9 +4,9 @@ const TITLEWINDOW = {
   vueApp: null,
   createVueApp: function () {
     return Vue.createApp({
-      data() {
+      data () {
         return {
-          header: TITLEWINDOW.headers[TITLEWINDOW.language] + " > " + TITLEWINDOW.prefLabel,
+          header: TITLEWINDOW.headers[TITLEWINDOW.language] + ' > ' + TITLEWINDOW.prefLabel,
           natLibURL:
             TITLEWINDOW.finnaURL +
             TITLEWINDOW.authorPrefix +
@@ -17,10 +17,10 @@ const TITLEWINDOW = {
           fontTexts: TITLEWINDOW.fontTexts,
           buttonTexts: TITLEWINDOW.buttonTexts,
           FormatListsStatus: {
-            author2_id_str_mv: {Image: false, Book: false, Sound: false, Journal: false, MusicalScore: false, Video: false},
-            topic_id_str_mv: {Image: false, Book: false, Sound: false, Journal: false, MusicalScore: false, Video: false}
+            author2_id_str_mv: { Image: false, Book: false, Sound: false, Journal: false, MusicalScore: false, Video: false },
+            topic_id_str_mv: { Image: false, Book: false, Sound: false, Journal: false, MusicalScore: false, Video: false }
           }
-        };
+        }
       },
       template: `
                 <div class="panel-group" id="finaf-widget" role="tablist" aria-multiselectable="true">
@@ -52,7 +52,8 @@ const TITLEWINDOW = {
                               </h4>
                               <ul class="finaf-title-list">
                                 <li v-for="(titleData) in renderTitleList(titleList, FormatListsStatus[role][format])">
-                                  <a :href="titleData.url" target="_blank">{{ shortenTitle(titleData.title) }}</a> ({{ titleData.year }})
+                                  <a :href="titleData.url" target="_blank">{{ shortenTitle(titleData.title) }}</a>
+                                  <span class="finaf-title-year"> ({{ titleData.year }})</span>
                                 </li>
                               </ul>
                               <button v-if="showButton(role, format)" @click="toggleButton($event, FormatListsStatus, role, format)">
@@ -71,313 +72,319 @@ const TITLEWINDOW = {
                 </div>
                 `,
       computed: {
-        records() {
-          return TITLEWINDOW.renderedTitles;
+        records () {
+          return TITLEWINDOW.renderedTitles
         }
       },
       methods: {
-        showButton(role, format) {
-          return TITLEWINDOW.renderedTitles[role][format].length > 5;
+        showButton (role, format) {
+          return TITLEWINDOW.renderedTitles[role][format].length > 5
         },
-        getRoleTranslation(role) {
+        getRoleTranslation (role) {
           return TITLEWINDOW.translatedLookforFields[role][TITLEWINDOW.language]
         },
-        getFormatTranslation(format) {
+        getFormatTranslation (format) {
           return TITLEWINDOW.formatTranslations[format][TITLEWINDOW.language]
         },
-        getToggleButtonText(opened) {
+        getToggleButtonText (opened) {
           return opened
-            ? TITLEWINDOW.buttonTexts["less"][TITLEWINDOW.language]
-            : TITLEWINDOW.buttonTexts["more"][TITLEWINDOW.language];
+            ? TITLEWINDOW.buttonTexts.less[TITLEWINDOW.language]
+            : TITLEWINDOW.buttonTexts.more[TITLEWINDOW.language]
         },
-        toggleButton(event, formatListsOpened, role, format) {
+        toggleButton (event, formatListsOpened, role, format) {
           if (formatListsOpened[role][format]) {
-            formatListsOpened[role][format] = false;
+            formatListsOpened[role][format] = false
           } else {
-            formatListsOpened[role][format] = true;
+            formatListsOpened[role][format] = true
           }
         },
-        renderTitleList(titleList, opened) {
-          return opened ? titleList : titleList.slice(0, 5);
+        renderTitleList (titleList, opened) {
+          return opened ? titleList : titleList.slice(0, 5)
         },
-        shortenTitle(title) {
+        shortenTitle (title) {
           if (title.length > 90) {
-            title = title.substr(0, 90) + " [...]";
+            title = title.substr(0, 90) + ' [...]'
           }
-          return title;
-        },
-      },
-    });
+          return title
+        }
+      }
+    })
   },
 
   // variables for query parameters:
-  lookforFields: ["author2_id_str_mv", "topic_id_str_mv"],
-  apiUrl: "https://api.finna.fi/v1/search?",
-  authorIdIdentifier: "melinda.(FI-ASTERI-N)",
-  finnaURL: "https://kansalliskirjasto.finna.fi/",
-  recordPrefix: "Record/",
-  authorPrefix: "AuthorityRecord/melinda.(FI-ASTERI-N)",
+  lookforFields: ['author2_id_str_mv', 'topic_id_str_mv'],
+  apiUrl: 'https://api.finna.fi/v1/search?',
+  authorIdIdentifier: 'melinda.(FI-ASTERI-N)',
+  finnaURL: 'https://kansalliskirjasto.finna.fi/',
+  recordPrefix: 'Record/',
+  authorPrefix: 'AuthorityRecord/melinda.(FI-ASTERI-N)',
   languageSuffix: {
-    fi: "?lng=fi",
-    sv: "?lng=sv",
-    en: "?lng=en",
-    se: "?lng=se",
+    fi: '?lng=fi',
+    sv: '?lng=sv',
+    en: '?lng=en',
+    se: '?lng=se'
   },
   filters: ['building:"0/NLF/"', 'finna.deduplication:"0"'],
-  fields: ["shortTitle", "OtherRecordLink", "formats", "id", "year"],
-  /*Available values : relevance, id asc, main_date_str desc, main_date_str asc, callnumber,
+  fields: ['shortTitle', 'OtherRecordLink', 'formats', 'id', 'year'],
+  /* Available values : relevance, id asc, main_date_str desc, main_date_str asc, callnumber,
   author, title, last_indexed desc,id asc, first_indexed desc,id asc
   */
-  sortOrder: "main_date_str desc",
+  sortOrder: 'main_date_str desc',
   limit: 100,
-  maxResults: 1000, //maximum number of results to be queried from Finna API
+  maxResults: 1000, // maximum number of results to be queried from Finna API
   identifier: null,
-  prefLabel: "",
-  language: "fi",
-  noteText: "",
+  prefLabel: '',
+  language: 'fi',
+  noteText: '',
 
   headers: {
-    fi: "Kansalliskirjaston aineistot",
-    sv: "Nationalbibliotekets samlingar",
-    en: "The Collections of the National Library",
+    fi: 'Kansalliskirjaston aineistot',
+    sv: 'Nationalbibliotekets samlingar',
+    en: 'The Collections of the National Library',
     se: "Álbmotgirjeráju' čoakkáldagat"
   },
 
   translatedLookforFields: {
     author2_id_str_mv: {
-      fi: "Tekijänä teoksissa",
-      sv: "upphov för verken",
-      en: "as author",
-      se: "Dahkkin dujiin",
+      fi: 'Tekijänä teoksissa',
+      sv: 'upphov för verken',
+      en: 'as author',
+      se: 'Dahkkin dujiin'
     },
     topic_id_str_mv: {
-      fi: "Aiheena teoksissa",
-      sv: "ämne i verken",
-      en: "as topic",
-      se: "Fáddán dujiin",
-    },
+      fi: 'Aiheena teoksissa',
+      sv: 'ämne i verken',
+      en: 'as topic',
+      se: 'Fáddán dujiin'
+    }
   },
 
   formatTranslations: {
-    Image: { fi: "kuvia", sv: "bilder", en: "images", se: "govat" },
-    Book: { fi: "kirjoja", sv: "böcker", en: "books", se: "girjjit" },
+    Image: { fi: 'kuvia', sv: 'bilder', en: 'images', se: 'govat' },
+    Book: { fi: 'kirjoja', sv: 'böcker', en: 'books', se: 'girjjit' },
     Sound: {
-      fi: "äänitteitä",
-      sv: "ljudspelningar",
-      en: "sound recordings",
-      se: "jietnabáttit",
+      fi: 'äänitteitä',
+      sv: 'ljudspelningar',
+      en: 'sound recordings',
+      se: 'jietnabáttit'
     },
     Journal: {
-      fi: "lehtiä ja artikkeleita",
-      sv: "tidskriftar och artiklar",
-      en: "journals and articles",
-      se: "aviissat ja artihkkalat",
+      fi: 'lehtiä ja artikkeleita',
+      sv: 'tidskriftar och artiklar',
+      en: 'journals and articles',
+      se: 'aviissat ja artihkkalat'
     },
     MusicalScore: {
-      fi: "nuotteja",
-      sv: "noter",
-      en: "musical scores",
-      se: "nuohtat",
+      fi: 'nuotteja',
+      sv: 'noter',
+      en: 'musical scores',
+      se: 'nuohtat'
     },
-    Video: { fi: "videoita", sv: "video", en: "videos", se: "videot" },
+    Video: { fi: 'videoita', sv: 'video', en: 'videos', se: 'videot' },
     Thesis: {
-      fi: "opinnäytteitä",
-      sv: "examensarbeten",
-      en: "theses",
-      se: "oahppočájánasat",
-    },
+      fi: 'opinnäytteitä',
+      sv: 'examensarbeten',
+      en: 'theses',
+      se: 'oahppočájánasat'
+    }
   },
 
   formatSortOrder: [
-    "Book",
-    "Sound",
-    "MusicalScore",
-    "Video",
-    "Journal",
-    "Image",
+    'Book',
+    'Sound',
+    'MusicalScore',
+    'Video',
+    'Journal',
+    'Image'
   ],
 
   fontTexts: {
-    Image: "image",
-    Book: "book",
-    Sound: "compact-disc",
-    Journal: "file-lines",
-    MusicalScore: "music",
-    Video: "film",
+    Image: 'image',
+    Book: 'book',
+    Sound: 'compact-disc',
+    Journal: 'file-lines',
+    MusicalScore: 'music',
+    Video: 'film'
   },
 
   noteTexts: {
     error: {
-      fi: "Tekijälle ei löydy julkaisuja.",
-      sv: "Inga utgåvor hittas för upphovspersonen.",
-      en: "No publications found for the author.",
-      se: "Dahkkái eai gávdno publikašuvnnat.",
+      fi: 'Tekijälle ei löydy julkaisuja.',
+      sv: 'Inga utgåvor hittas för upphovspersonen.',
+      en: 'No publications found for the author.',
+      se: 'Dahkkái eai gávdno publikašuvnnat.'
     },
     source: {
-      fi: "Tietoja toimijaan liittyvästä aineistosta haettu Kansalliskirjaston hakupalvelusta.",
-      sv: "Information om material som relaterar till aktören har hämtats från Nationalbibliotekets söktjänst.",
-      en: "Information about authors’ publications is received from the National Library Search Service.",
-      se: "Dieđut doibmii laktáseaddji materiálain leat vižžon álbmotbibliografiijas Finna bokte.",
-    },
+      fi: 'Tietoja toimijaan liittyvästä aineistosta haettu Kansalliskirjaston hakupalvelusta.',
+      sv: 'Information om material som relaterar till aktören har hämtats från Nationalbibliotekets söktjänst.',
+      en: 'Information about authors’ publications is received from the National Library Search Service.',
+      se: 'Dieđut doibmii laktáseaddji materiálain leat vižžon álbmotbibliografiijas Finna bokte.'
+    }
   },
 
   buttonTexts: {
     more: {
-      fi: "Näytä kaikki",
-      sv: "Visa allt",
-      en: "Show all",
-      se: "Čájet visot",
+      fi: 'Näytä kaikki',
+      sv: 'Visa allt',
+      en: 'Show all',
+      se: 'Čájet visot'
     },
     less: {
-      fi: "Näytä vähemmän",
-      sv: "Visa mindre",
-      en: "Show less",
-      se: "Čájet uhcit",
-    },
+      fi: 'Näytä vähemmän',
+      sv: 'Visa mindre',
+      en: 'Show less',
+      se: 'Čájet uhcit'
+    }
   },
 
   finnaSearchTexts: {
-    fi: "Katso kaikki hakutulokset Kansalliskirjaston hakupalvelusta",
-    sv: "Se alla sökresultat från Nationalbibliotekets söktjänst",
-    en: "See all the results from the National Library Search",
-    se: "Geahča ohcanbohtosiid Álbmotgirjeráju ohcanbálvalusas",
+    fi: 'Katso kaikki hakutulokset Kansalliskirjaston hakupalvelusta',
+    sv: 'Se alla sökresultat från Nationalbibliotekets söktjänst',
+    en: 'See all the results from the National Library Search',
+    se: 'Geahča ohcanbohtosiid Álbmotgirjeráju ohcanbálvalusas'
   },
 
   generateQueryString: function (identifier, lookforField, offset) {
-    identifier = '"' + TITLEWINDOW.authorIdIdentifier + identifier + '"';
-    var lookfor = "lookfor=" + lookforField + ":" + identifier;
-    var url = TITLEWINDOW.apiUrl + lookfor;
-    var parameters = {
+    identifier = '"' + TITLEWINDOW.authorIdIdentifier + identifier + '"'
+    const lookfor = 'lookfor=' + lookforField + ':' + identifier
+    let url = TITLEWINDOW.apiUrl + lookfor
+    const parameters = {
       field: TITLEWINDOW.fields,
       filter: TITLEWINDOW.filters,
       limit: TITLEWINDOW.limit,
       sort: TITLEWINDOW.sortOrder,
-      page: offset,
-    };
+      page: offset
+    }
     for (const key in parameters) {
-      value = parameters[key];
+      const value = parameters[key]
       if (value instanceof Array) {
         for (const index in value) {
-          url += "&" + key + "[]=" + value[index];
+          url += '&' + key + '[]=' + value[index]
         }
       } else {
-        url += "&" + key + "=" + value;
+        url += '&' + key + '=' + value
       }
     }
-    return url;
+    return url
   },
 
   queryFinna: function (url, label) {
     return fetch(url)
       .then((response) => {
-        return response.json();
+        return response.json()
       })
       .then((data) => {
         return {
           results: data,
-          label: label,
-        };
-      });
+          label
+        }
+      })
   },
 
   renderedTitles: {},
   handleQueryResults: function (results) {
     Object.keys(results).forEach((role) => {
       const records = Array.prototype.concat.apply([], results[role])
-      const titles = {};
+      const titles = {}
 
       records.forEach((record) => {
-        const title = record.shortTitle;
-        const url = TITLEWINDOW.finnaURL + TITLEWINDOW.recordPrefix + record.id;
-        const year = record.year;
-        let recordFormat;
+        const title = record.shortTitle
+        const url = TITLEWINDOW.finnaURL + TITLEWINDOW.recordPrefix + record.id
+        const year = record.year
+        let recordFormat
         // the hierarchically highest level of format gets chosen
         const firstFormat =
           Array.isArray(record.formats) && record.formats[0]
             ? record.formats[0]
-            : null;
+            : null
         const valueList =
           firstFormat && firstFormat.value
-            ? String(firstFormat.value).split("/")
-            : [];
+            ? String(firstFormat.value).split('/')
+            : []
         if (valueList.length > 1) {
-          recordFormat = valueList[1];
+          recordFormat = valueList[1]
         }
 
         if (recordFormat && recordFormat in TITLEWINDOW.formatTranslations) {
-          if (recordFormat === "Thesis") recordFormat = "Book";
+          if (recordFormat === 'Thesis') recordFormat = 'Book'
 
           if (titles[recordFormat] === undefined) {
-            titles[recordFormat] = {};
+            titles[recordFormat] = {}
           }
 
-          const key = title.toLowerCase();
+          const key = title.toLowerCase()
           if (titles[recordFormat][key] === undefined) {
-            titles[recordFormat][key] = { title, year, url };
+            titles[recordFormat][key] = { title, year, url }
           } else {
-            let recordTitle = titles[recordFormat][key].title;
-            let recordYear = titles[recordFormat][key].year;
-            const parsedExisting = parseInt(recordYear, 10);
-            const parsedNew = parseInt(year, 10);
+            const recordTitle = titles[recordFormat][key].title
+            const recordYear = titles[recordFormat][key].year
+            const parsedExisting = parseInt(recordYear, 10)
+            const parsedNew = parseInt(year, 10)
             if (!Number.isNaN(parsedExisting) && !Number.isNaN(parsedNew)) {
               if (parsedExisting > parsedNew) {
-                titles[recordFormat][key].year = recordYear;
+                titles[recordFormat][key].year = recordYear
               } else {
-                titles[recordFormat][key].year = recordYear;
+                titles[recordFormat][key].year = recordYear
               }
             }
             // if the same title is in uppercase,
             // it is replaced by title with one or more lowercase letters
             if (title.toUpperCase() !== title && title !== recordTitle) {
-              titles[recordFormat][key].title = title;
+              titles[recordFormat][key].title = title
             }
           }
         }
-      });
-        this.renderedTitles[role] = {};
+      })
+      this.renderedTitles[role] = {}
 
       TITLEWINDOW.formatSortOrder.forEach((recordFormat) => {
         if (recordFormat in titles) {
-          this.renderedTitles[role][recordFormat] = [];
+          this.renderedTitles[role][recordFormat] = []
 
           Object.keys(titles[recordFormat]).forEach((key) => {
-            const record = titles[recordFormat][key];
+            const record = titles[recordFormat][key]
             this.renderedTitles[role][recordFormat].push({
               title: record.title,
               year: record.year,
-              url: record.url,
-            });
-          });
+              url: record.url
+            })
+          })
         }
-      });
-    });
+      })
+    })
   },
 
   render: function () {
-    TITLEWINDOW.noteText = ""
+    TITLEWINDOW.noteText = ''
     if (Object.keys(TITLEWINDOW.renderedTitles).length === 0) {
-      TITLEWINDOW.noteText += TITLEWINDOW.noteTexts["error"][TITLEWINDOW.language] + " "
+      TITLEWINDOW.noteText += TITLEWINDOW.noteTexts.error[TITLEWINDOW.language] + ' '
     }
-    TITLEWINDOW.noteText += TITLEWINDOW.noteTexts["source"][TITLEWINDOW.language];
-    const mountPoint = document.getElementById("finaf-plugin");
+    TITLEWINDOW.noteText += TITLEWINDOW.noteTexts.source[TITLEWINDOW.language]
+    const mountPoint = document.getElementById('finaf-plugin')
     if (mountPoint) {
       if (this.vueApp) {
-        this.vueApp.unmount();
+        this.vueApp.unmount()
       }
-      mountPoint.remove();
+      mountPoint.remove()
     }
-    const newMountPoint = document.createElement("div");
-    newMountPoint.id = "finaf-plugin";
+    const newMountPoint = document.createElement('div')
+    newMountPoint.id = 'finaf-plugin'
     document
-      .getElementById("main-content-bottom-slot")
-      .appendChild(newMountPoint);
+      .getElementById('main-content-bottom-slot')
+      .appendChild(newMountPoint)
 
-    this.vueApp = this.createVueApp();
-    this.vueApp.mount("#finaf-plugin");
+    this.vueApp = this.createVueApp()
+    this.vueApp.mount('#finaf-plugin')
   },
-};
+  remove: function () {
+    if (this.vueApp) {
+      this.vueApp.unmount()
+      this.vueApp = null
+    }
+  }
+}
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function () {
   window.titleWindow = function (data) {
     // Only activate the widget when
     // 1) on an authority page
@@ -385,79 +392,82 @@ document.addEventListener("DOMContentLoaded", function () {
     // 3) and the json-ld data can be found
     // 4) and there is an identifier
     if (
-      data.pageType !== "concept" ||
+      data.pageType !== 'concept' ||
       data.prefLabels.length === 0 ||
       Object.keys(data.jsonLd).length === 0
     ) {
-      return;
-    }
-    const finnishLabel = data.prefLabels.find(item => item.lang === "fi");
-    TITLEWINDOW.prefLabel = finnishLabel ? finnishLabel.label : null;
-    if (TITLEWINDOW.prefLabel === null) {
+      TITLEWINDOW.remove()
       return
     }
-    TITLEWINDOW.language = window.SKOSMOS.lang;
-    TITLEWINDOW.prefLabel = data.prefLabels[0].label
-    const uri = window.SKOSMOS.uri;
-    const uriSpace = window.SKOSMOS.uriSpace;
-    TITLEWINDOW.identifier = uri.replace(uriSpace, "");
-    if (!TITLEWINDOW.identifier) {
-      return;
+    const finnishLabel = data.prefLabels.find(item => item.lang === 'fi')
+    TITLEWINDOW.prefLabel = finnishLabel ? finnishLabel.label : null
+    if (TITLEWINDOW.prefLabel === null) {
+      TITLEWINDOW.remove()
+      return
     }
-    const queries = [];
-    for (field of TITLEWINDOW.lookforFields) {
+    TITLEWINDOW.language = window.SKOSMOS.lang
+    TITLEWINDOW.prefLabel = data.prefLabels[0].label
+    const uri = window.SKOSMOS.uri
+    const uriSpace = window.SKOSMOS.uriSpace
+    TITLEWINDOW.identifier = uri.replace(uriSpace, '')
+    if (!TITLEWINDOW.identifier) {
+      TITLEWINDOW.remove()
+      return
+    }
+    const queries = []
+    for (const field of TITLEWINDOW.lookforFields) {
       const restURL = TITLEWINDOW.generateQueryString(
         TITLEWINDOW.identifier,
         field,
-        1,
-      );
-      const query = TITLEWINDOW.queryFinna(restURL, field);
-      queries.push(query);
+        1
+      )
+      const query = TITLEWINDOW.queryFinna(restURL, field)
+      queries.push(query)
     }
     Promise.all(queries).then((results) => {
-      const resultCounts = [];
-      const records = {};
+      const resultCounts = []
+      const records = {}
       results.forEach((value, index) => {
-        const resultCount = value.results.resultCount;
-        resultCounts[index] = resultCount;
+        const resultCount = value.results.resultCount
+        resultCounts[index] = resultCount
 
         if (resultCount > 0) {
-          records[value.label] = [value.results.records];
+          records[value.label] = [value.results.records]
         }
-      });
+      })
       const nextQueries = []
       resultCounts.forEach((value, index) => {
         if (value > TITLEWINDOW.maxResults) {
-          value = TITLEWINDOW.maxResults;
+          value = TITLEWINDOW.maxResults
         }
         if (value > TITLEWINDOW.limit) {
-          const queryNumber = Math.ceil(value / TITLEWINDOW.limit);
+          const queryNumber = Math.ceil(value / TITLEWINDOW.limit)
           for (let i = 2; i <= queryNumber; i++) {
-            const field = TITLEWINDOW.lookforFields[index];
+            const field = TITLEWINDOW.lookforFields[index]
             const restURL = TITLEWINDOW.generateQueryString(
               TITLEWINDOW.identifier,
               field,
-              i,
-            );
+              i
+            )
             const query = TITLEWINDOW.queryFinna(restURL, field)
             nextQueries.push(query)
           }
         }
-      });
+      })
 
       if (nextQueries.length > 0) {
         return Promise.all(nextQueries).then((nextResults) => {
           nextResults.forEach((value) => {
-            if (!records[value.label]) records[value.label] = [];
-            records[value.label].push(value.results.records);
-          });
-          TITLEWINDOW.handleQueryResults(records);
-          TITLEWINDOW.render();
-        });
+            if (!records[value.label]) records[value.label] = []
+            records[value.label].push(value.results.records)
+          })
+          TITLEWINDOW.handleQueryResults(records)
+          TITLEWINDOW.render()
+        })
       } else {
-        TITLEWINDOW.handleQueryResults(records);
-        TITLEWINDOW.render();
+        TITLEWINDOW.handleQueryResults(records)
+        TITLEWINDOW.render()
       }
-    });
-  };
-});
+    })
+  }
+})
