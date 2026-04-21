@@ -1,4 +1,4 @@
-/* global Vue, L */
+/* global Vue */
 
 const TITLEWINDOW = {
   vueApp: null,
@@ -40,10 +40,10 @@ const TITLEWINDOW = {
                     </div>
                     <div id="finaf-collapse" class="panel-collapse collapse show" role="tabpanel" aria-labelledby="finaf-heading">
                       <div class="panel-body">
-                        <div id="finaf-note">
-                          {{noteText}}
-                        </div>
                         <div id="finaf-title-wrapper">
+                          <div id="finaf-note">
+                            <i class="fa-solid fa-circle-info"></i>{{noteText}}
+                          </div>
                           <div class="finaf-column" v-for="(values, role) in records">
                             <h3>{{ getRoleTranslation(role).toUpperCase() }}</h3>
                             <div class="finaf-format-header" v-for="(titleList, format) in values">
@@ -112,7 +112,6 @@ const TITLEWINDOW = {
 
   // variables for query parameters:
   lookforFields: ["author2_id_str_mv", "topic_id_str_mv"],
-
   apiUrl: "https://api.finna.fi/v1/search?",
   authorIdIdentifier: "melinda.(FI-ASTERI-N)",
   finnaURL: "https://kansalliskirjasto.finna.fi/",
@@ -124,7 +123,6 @@ const TITLEWINDOW = {
     en: "?lng=en",
     se: "?lng=se",
   },
-  institution: 'building:"0\/NLF\/"',
   filters: ['building:"0/NLF/"', 'finna.deduplication:"0"'],
   fields: ["shortTitle", "OtherRecordLink", "formats", "id", "year"],
   /*Available values : relevance, id asc, main_date_str desc, main_date_str asc, callnumber,
@@ -356,7 +354,8 @@ const TITLEWINDOW = {
   },
 
   render: function () {
-    if (TITLEWINDOW.renderedTitles === "{}") {
+    TITLEWINDOW.noteText = ""
+    if (Object.keys(TITLEWINDOW.renderedTitles).length === 0) {
       TITLEWINDOW.noteText += TITLEWINDOW.noteTexts["error"][TITLEWINDOW.language] + " "
     }
     TITLEWINDOW.noteText += TITLEWINDOW.noteTexts["source"][TITLEWINDOW.language];
@@ -415,7 +414,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const query = TITLEWINDOW.queryFinna(restURL, field);
       queries.push(query);
     }
-
     Promise.all(queries).then((results) => {
       const resultCounts = [];
       const records = {};
@@ -428,7 +426,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
       const nextQueries = []
-
       resultCounts.forEach((value, index) => {
         if (value > TITLEWINDOW.maxResults) {
           value = TITLEWINDOW.maxResults;

@@ -1,85 +1,50 @@
- :root {
-  --dark-color: #002855;
-  --secondary-dark-color: #5d7999;
-  --medium-color: #1980b3;
-  --secondary-medium-color: #b8c9db;
-  --tertiary-medium-color: #9ba6bb;
-  --light-color: #dfe5ed;
-  --secondary-light-color: #f2f5f7;
-  --alert-color: #a0270a;
-  --accent-color: #fae196;
-  --white-color: #ffffff;
-  --font-size: 14px;
-}
-
-#finaf-widget {
-  margin-top: .2rem;
-  background-color: var(--light-color);
-}
-
-/* #finaf-heading {
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-
-#finaf-heading .accordion-button {
-  font-weight: bold;
-  font-size: 1.2rem;
-} */
-
 #finaf-heading .accordion-button {
   background-color: var(--white-color);
   padding-top: 0.5rem;
   padding-right: 1rem;
   padding-bottom: 0.5rem;
   padding-left: 1rem;
-  z-index: 0;
-  height: 40px;
   font-weight: bold;
   font-size: 1.2rem;
-  border-bottom: 2px solid var(--secondary-medium-color);
 }
 
 #finaf-header-button {
   background-color: var(--white-color);
 }
 
-/* #finaf-panel:after {
-  content: "";
-  display: table;
-  clear: both;
-} */
- 
-/* .finaf-column > a.toggle-text {
-  color: #333333;
-  cursor: pointer;
-  text-decoration: none;
-} */
+.finaf-column {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding-left: 1rem;
+  padding-top: 1rem;
+}
+
+.finaf-column > h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.finaf-format-header > h4 {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
 
 #finaf-note {
-  background-color: var(--white-color);
   padding-top: 0.5rem;
   padding-right: 1rem;
   padding-bottom: 0.5rem;
   padding-left: 1rem;
-  border-bottom: 2px solid var(--secondary-medium-color);
-  font-size: 14px;
-  color: var(--gray-900);
-  --font-family: 'Fira Sans', sans-serif;
-  background-image: url("../../resource/finto-pics/about.png");
-  background-repeat: no-repeat;
-  background-size: 16px 16px;
-  background-position-x: 1em;
-  background-position-y: 10px;
-  padding-left: 33px;
+  font-size: 0.85rem;
+}
+
+#finaf-note > i {
+  padding-right: 0.5rem;
 }
 
 #finaf-title-wrapper {
-  margin-top: 3px;
-  margin-left: 15px;
   display: table;
+  background-color: var(--light-color);
+  width: 100%;
 }
 
 .finaf-column {
