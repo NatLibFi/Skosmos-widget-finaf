@@ -402,7 +402,7 @@ const FINAF_ID_TWEAK = {
           asteriSpan.id = `finaf-adjusted-${index}s${sIndex}`
           asteriSpan.textContent = asteriId
 
-          span.textContent = 'Asteri ID: '
+          span.textContent = 'Asteri-ID: '
 
           if (copyBtnTemplate) {
             const copyBtn = copyBtnTemplate.cloneNode(true)
