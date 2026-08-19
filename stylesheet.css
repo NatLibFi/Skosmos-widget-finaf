@@ -85,3 +85,15 @@
 #finaf-link {
   font-weight: lighter;
 }
+
+.vocab-finaf .isni-digit-block:not(:nth-last-of-type(1))::after {
+  content: " ";
+}
+
+.vocab-finaf .orcid {
+  padding-right: 22px;
+  margin-right: 6px;
+  background-image: url(orcid_16x16.png);
+  background-position: center right;
+  background-repeat: no-repeat;
+}

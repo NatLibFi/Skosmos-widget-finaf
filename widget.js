@@ -384,6 +384,121 @@ const TITLEWINDOW = {
   }
 }
 
+const FINAF_ID_TWEAK = {
+  render: function () {
+    const lis = document.querySelectorAll('.prop-rdaa_P50094 li:not(.finaf-adjusted), .prop-rdaa_P50006 li:not(.finaf-adjusted)')
+
+    // Cache the copy button template to avoid repeated DOM queries
+    const copyBtnTemplate = document.querySelector('#copy-uri')
+
+    lis.forEach((li, index) => {
+      li.classList.add('finaf-adjusted')
+
+      // Process direct child spans
+      li.querySelectorAll(':scope > span').forEach((span, sIndex) => {
+        if (span.textContent.startsWith('Asteri ID:')) {
+          const asteriId = span.textContent.substring(11)
+          const asteriSpan = document.createElement('span')
+          asteriSpan.id = `finaf-adjusted-${index}s${sIndex}`
+          asteriSpan.textContent = asteriId
+
+          span.textContent = 'Asteri ID: '
+
+          if (copyBtnTemplate) {
+            const copyBtn = copyBtnTemplate.cloneNode(true)
+            copyBtn.setAttribute('id', 'copy-asteri-id')
+            copyBtn.setAttribute('data-target-id', asteriSpan.id)
+            copyBtn.style.marginLeft = '4px'
+            span.after(asteriSpan, copyBtn)
+          }
+        }
+        if (span.textContent.startsWith('Y-tunnus:')) {
+          const yTunnusId = span.textContent.substring(10)
+          const yTunnusSpan = document.createElement('span')
+          yTunnusSpan.id = `finaf-adjusted-${index}s${sIndex}`
+          yTunnusSpan.textContent = yTunnusId
+
+          span.textContent = 'Y-tunnus: '
+
+          if (copyBtnTemplate) {
+            const copyBtn = copyBtnTemplate.cloneNode(true)
+            copyBtn.setAttribute('id', 'copy-ytunnus')
+            copyBtn.setAttribute('data-target-id', yTunnusSpan.id)
+            copyBtn.style.marginLeft = '4px'
+            span.after(yTunnusSpan, copyBtn)
+          }
+        }
+      })
+
+      // Process links
+      li.querySelectorAll('a').forEach((link, aIndex) => {
+        const href = link.getAttribute('href')
+        if (!href) return
+
+        if (href.startsWith('http://isni.org/isni/')) {
+          const label = document.createElement('span')
+          label.textContent = 'ISNI: '
+          link.parentNode.insertBefore(label, link)
+
+          const isni = href.replace('http://isni.org/isni/', '')
+          link.textContent = ''
+
+          for (let i = 0; i <= 12; i += 4) {
+            const digitBlock = document.createElement('span')
+            digitBlock.className = 'isni-digit-block'
+            digitBlock.textContent = isni.substring(i, i + 4)
+            link.appendChild(digitBlock)
+          }
+
+          link.id = `finaf-adjusted-${index}a${aIndex}`
+          if (copyBtnTemplate) {
+            const copyBtn = copyBtnTemplate.cloneNode(true)
+            copyBtn.setAttribute('id', 'copy-isni')
+            copyBtn.setAttribute('data-target-id', link.id)
+            copyBtn.style.marginLeft = '4px'
+            link.after(copyBtn)
+          }
+        } else if (href.startsWith('https://orcid.org/')) {
+          const label = document.createElement('span')
+          label.className = 'orcid'
+          label.textContent = 'ORCID:'
+          link.parentNode.insertBefore(label, link)
+
+          const orcid = href.replace('https://orcid.org/', '')
+          link.textContent = orcid
+
+          link.id = `finaf-adjusted-${index}a${aIndex}`
+          if (copyBtnTemplate) {
+            const copyBtn = copyBtnTemplate.cloneNode(true)
+            copyBtn.setAttribute('id', 'copy-orcid')
+            copyBtn.setAttribute('data-target-id', link.id)
+            copyBtn.style.marginLeft = '4px'
+            link.after(copyBtn)
+          }
+        } else if (href.startsWith('http://viaf.org/viaf/')) {
+          const label = document.createElement('span')
+          label.textContent = 'VIAF ID: '
+          link.parentNode.insertBefore(label, link)
+
+          const viaf = href.replace('http://viaf.org/viaf/', '')
+          link.textContent = viaf
+
+          link.id = `finaf-adjusted-${index}a${aIndex}`
+          if (copyBtnTemplate) {
+            const copyBtn = copyBtnTemplate.cloneNode(true)
+            copyBtn.setAttribute('id', 'copy-viaf')
+            copyBtn.setAttribute('data-target-id', link.id)
+            copyBtn.style.marginLeft = '4px'
+            link.after(copyBtn)
+          }
+        }
+      })
+    })
+  },
+  remove: function () {
+  }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   window.titleWindow = function (data) {
     // Only activate the widget when
@@ -469,5 +584,13 @@ document.addEventListener('DOMContentLoaded', function () {
         TITLEWINDOW.render()
       }
     })
+  }
+
+  window.finafIdTweak = function (data) {
+    if (data.pageType === 'concept') {
+      FINAF_ID_TWEAK.render()
+    } else {
+      FINAF_ID_TWEAK.remove()
+    }
   }
 })
