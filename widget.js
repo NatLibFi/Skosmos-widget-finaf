@@ -463,9 +463,7 @@ const FINAF_ID_TWEAK = {
           label.className = 'orcid'
           label.textContent = 'ORCID:'
           link.parentNode.insertBefore(label, link)
-
-          const orcid = href.replace('https://orcid.org/', '')
-          link.textContent = orcid
+          link.textContent = href
 
           link.id = `finaf-adjusted-${index}a${aIndex}`
           if (copyBtnTemplate) {
