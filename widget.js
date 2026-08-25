@@ -414,18 +414,20 @@ const FINAF_ID_TWEAK = {
         }
         if (span.textContent.startsWith('Y-tunnus:')) {
           const yTunnusId = span.textContent.substring(10)
-          const yTunnusSpan = document.createElement('span')
-          yTunnusSpan.id = `finaf-adjusted-${index}s${sIndex}`
-          yTunnusSpan.textContent = yTunnusId
+          const yTunnusLink = document.createElement('a')
+          yTunnusLink.id = `finaf-adjusted-${index}s${sIndex}`
+          yTunnusLink.textContent = yTunnusId
+          const yTunnusUrl = `https://tietopalvelu.ytj.fi/yritys/${yTunnusId}`
+          yTunnusLink.setAttribute('href', yTunnusUrl)
 
           span.textContent = 'Y-tunnus: '
 
           if (copyBtnTemplate) {
             const copyBtn = copyBtnTemplate.cloneNode(true)
             copyBtn.setAttribute('id', 'copy-ytunnus')
-            copyBtn.setAttribute('data-target-id', yTunnusSpan.id)
+            copyBtn.setAttribute('data-target-id', yTunnusLink.id)
             copyBtn.style.marginLeft = '4px'
-            span.after(yTunnusSpan, copyBtn)
+            span.after(yTunnusLink, copyBtn)
           }
         }
       })
