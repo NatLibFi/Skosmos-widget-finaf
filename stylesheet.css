@@ -86,6 +86,10 @@
   font-weight: lighter;
 }
 
+.finaf-adjusted .btn {
+  padding: 2px;
+}
+
 .vocab-finaf .isni-digit-block:not(:nth-last-of-type(1))::after {
   content: " ";
 }
