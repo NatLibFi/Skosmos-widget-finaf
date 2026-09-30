@@ -1,3 +1,7 @@
+#finaf-widget {
+  margin-top: .2rem;
+}
+
 #finaf-heading .accordion-button {
   background-color: var(--white-color);
   padding-top: 0.5rem;
@@ -16,7 +20,7 @@
 .finaf-column {
   font-weight: bold;
   padding-left: 1rem;
-  padding-top: 1rem;
+  /* padding-top: 1rem; */
 }
 
 .finaf-column > h3 {
@@ -25,7 +29,7 @@
 }
 
 .finaf-format-header > h4 {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
 }
 
@@ -43,7 +47,7 @@
 
 #finaf-title-wrapper {
   display: table;
-  background-color: var(--light-color);
+  background-color: var(--secondary-light-color);
   width: 100%;
 }
 
@@ -79,7 +83,8 @@
   padding-bottom: 0.5rem;
   padding-left: 1rem;
   background-color: var(--white-color);
-  font-size: 1.2rem;
+  border-top: 1px solid var(--light-color);
+  font-size: 1rem;
 }
 
 #finaf-link {
