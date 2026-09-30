@@ -49,7 +49,7 @@ const TITLEWINDOW = {
                           <div class="finaf-column" v-for="(values, role) in records">
                             <h3 class="mb-2">{{ getRoleTranslation(role) }}</h3>
                             <div class="finaf-format-header" v-for="(titleList, format) in values">
-                              <h4>
+                              <h4 class="mb-0">
                                 <span :class="'fa-solid fa-' + fontTexts[format]"></span>
                                 {{ getFormatTranslation(format).toUpperCase() }}
                               </h4>

@@ -73,6 +73,10 @@
   background: none;
 }
 
+.finaf-title-list > li > a:hover {
+  text-decoration: underline;
+}
+
 .finaf-title-year {
   font-weight: lighter;
 }
@@ -89,6 +93,10 @@
 
 #finaf-link {
   font-weight: lighter;
+}
+
+#finaf-link:hover {
+  text-decoration: underline;
 }
 
 .finaf-adjusted .btn {
