@@ -23,10 +23,10 @@ const TITLEWINDOW = {
         }
       },
       template: `
-                <div class="panel-group" id="finaf-widget" role="tablist" aria-multiselectable="true">
+                <div class="panel-group" id="finaf-widget" aria-multiselectable="true">
                   <div class="panel panel-default">
                     <div class="panel-heading" id="finaf-heading">
-                      <h3 class="mb-0">
+                      <h2 class="mb-0">
                         <button
                           class="accordion-button accordion"
                           type="button"
@@ -38,9 +38,9 @@ const TITLEWINDOW = {
                         >
                           <div>{{header}}</div>
                         </button>
-                      </h3>
+                      </h2>
                     </div>
-                    <div id="finaf-collapse" class="panel-collapse collapse show" role="tabpanel" aria-labelledby="finaf-heading">
+                    <div id="finaf-collapse" class="panel-collapse collapse show" aria-labelledby="finaf-heading">
                       <div class="panel-body">
                         <div id="finaf-title-wrapper">
                           <div id="finaf-note">
