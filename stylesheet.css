@@ -38,7 +38,7 @@
 }
 
 #finaf-note > i {
-  padding-right: 0.5rem;
+  padding-right: 1,9rem;
 }
 
 #finaf-title-wrapper {
@@ -67,6 +67,10 @@
   padding: 0;
   border: none;
   background: none;
+}
+
+.finaf-title-list {
+  padding-right: 1.9rem;
 }
 
 .finaf-title-list > li > a:hover {
