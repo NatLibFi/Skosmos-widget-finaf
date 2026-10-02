@@ -23,32 +23,35 @@ const TITLEWINDOW = {
         }
       },
       template: `
-                <div class="panel-group" id="finaf-widget" role="tablist" aria-multiselectable="true">
+                <div class="panel-group" id="finaf-widget" aria-multiselectable="true">
                   <div class="panel panel-default">
                     <div class="panel-heading" id="finaf-heading">
-                      <button
-                        class="accordion-button accordion"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#finaf-collapse"
-                        aria-expanded="true"
-                        aria-controls="finaf-collapse"
-                        id="finaf-header-button"
-                      >
-                        <div>{{header}}</div>
-                      </button>
+                      <h2 class="mb-0">
+                        <button
+                          class="accordion-button accordion"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#finaf-collapse"
+                          aria-expanded="true"
+                          aria-controls="finaf-collapse"
+                          id="finaf-header-button"
+                        >
+                          <div>{{header}}</div>
+                        </button>
+                      </h2>
                     </div>
-                    <div id="finaf-collapse" class="panel-collapse collapse show" role="tabpanel" aria-labelledby="finaf-heading">
+                    <div id="finaf-collapse" class="panel-collapse collapse show" aria-labelledby="finaf-heading">
                       <div class="panel-body">
                         <div id="finaf-title-wrapper">
                           <div id="finaf-note">
                             <i class="fa-solid fa-circle-info"></i>{{noteText}}
                           </div>
                           <div class="finaf-column" v-for="(values, role) in records">
-                            <h3>{{ getRoleTranslation(role).toUpperCase() }}</h3>
+                            <h3 class="mb-2">{{ getRoleTranslation(role) }}</h3>
                             <div class="finaf-format-header" v-for="(titleList, format) in values">
-                              <h4>{{ getFormatTranslation(format).toUpperCase() }}
-                                <span :class="'fa-solid fa-' + fontTexts[format]"
+                              <h4 class="mb-0">
+                                <span :class="'fa-solid fa-' + fontTexts[format]"></span>
+                                {{ getFormatTranslation(format).toUpperCase() }}
                               </h4>
                               <ul class="finaf-title-list">
                                 <li v-for="(titleData) in renderTitleList(titleList, FormatListsStatus[role][format])">
@@ -354,12 +357,7 @@ const TITLEWINDOW = {
     })
   },
 
-  render: function () {
-    TITLEWINDOW.noteText = ''
-    if (Object.keys(TITLEWINDOW.renderedTitles).length === 0) {
-      TITLEWINDOW.noteText += TITLEWINDOW.noteTexts.error[TITLEWINDOW.language] + ' '
-    }
-    TITLEWINDOW.noteText += TITLEWINDOW.noteTexts.source[TITLEWINDOW.language]
+  appendMountPoint: function () {
     const mountPoint = document.getElementById('finaf-plugin')
     if (mountPoint) {
       if (this.vueApp) {
@@ -372,10 +370,19 @@ const TITLEWINDOW = {
     document
       .getElementById('main-content-bottom-slot')
       .appendChild(newMountPoint)
+  },
+
+  render: function () {
+    TITLEWINDOW.noteText = ''
+    if (Object.keys(TITLEWINDOW.renderedTitles).length === 0) {
+      TITLEWINDOW.noteText += TITLEWINDOW.noteTexts.error[TITLEWINDOW.language] + ' '
+    }
+    TITLEWINDOW.noteText += TITLEWINDOW.noteTexts.source[TITLEWINDOW.language]
 
     this.vueApp = this.createVueApp()
     this.vueApp.mount('#finaf-plugin')
   },
+
   remove: function () {
     if (this.vueApp) {
       this.vueApp.unmount()
@@ -529,6 +536,7 @@ document.addEventListener('DOMContentLoaded', function () {
       TITLEWINDOW.remove()
       return
     }
+    TITLEWINDOW.appendMountPoint()
     const queries = []
     for (const field of TITLEWINDOW.lookforFields) {
       const restURL = TITLEWINDOW.generateQueryString(

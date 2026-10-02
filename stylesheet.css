@@ -1,22 +1,22 @@
+#finaf-widget {
+  margin-top: 1rem;
+}
+
 #finaf-heading .accordion-button {
   background-color: var(--white-color);
   padding-top: 0.5rem;
-  padding-right: 1rem;
+  padding-right: 1.9rem;
   padding-bottom: 0.5rem;
-  padding-left: 1rem;
+  padding-left: 1.9rem;
+  font-family: var(--font-family);
   font-weight: bold;
   font-size: 1.2rem;
   color: var(--dark-color);
 }
 
-#finaf-header-button {
-  background-color: var(--white-color);
-}
-
 .finaf-column {
   font-weight: bold;
-  padding-left: 1rem;
-  padding-top: 1rem;
+  padding-left: 1.9rem;
 }
 
 .finaf-column > h3 {
@@ -25,15 +25,15 @@
 }
 
 .finaf-format-header > h4 {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
 }
 
 #finaf-note {
   padding-top: 0.5rem;
-  padding-right: 1rem;
+  padding-right: 1.9rem;
   padding-bottom: 0.5rem;
-  padding-left: 1rem;
+  padding-left: 1.9rem;
   font-size: 0.85rem;
 }
 
@@ -43,7 +43,7 @@
 
 #finaf-title-wrapper {
   display: table;
-  background-color: var(--light-color);
+  background-color: var(--secondary-light-color);
   width: 100%;
 }
 
@@ -69,21 +69,30 @@
   background: none;
 }
 
+.finaf-title-list > li > a:hover {
+  text-decoration: underline;
+}
+
 .finaf-title-year {
   font-weight: lighter;
 }
 
 #finaf-search {
   padding-top: 0.5rem;
-  padding-right: 1rem;
+  padding-right: 1.9rem;
   padding-bottom: 0.5rem;
-  padding-left: 1rem;
+  padding-left: 1.9rem;
   background-color: var(--white-color);
-  font-size: 1.2rem;
+  border-top: 1px solid var(--light-color);
+  font-size: 1rem;
 }
 
 #finaf-link {
   font-weight: lighter;
+}
+
+#finaf-link:hover {
+  text-decoration: underline;
 }
 
 .finaf-adjusted .btn {
