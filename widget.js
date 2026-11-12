@@ -23,25 +23,23 @@ const TITLEWINDOW = {
         }
       },
       template: `
-                <div class="panel-group" id="finaf-widget" aria-multiselectable="true">
-                  <div class="panel panel-default">
-                    <div class="panel-heading" id="finaf-heading">
-                      <h2 class="mb-0">
-                        <button
-                          class="accordion-button accordion"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#finaf-collapse"
-                          aria-expanded="true"
-                          aria-controls="finaf-collapse"
-                          id="finaf-header-button"
-                        >
-                          <div>{{header}}</div>
-                        </button>
-                      </h2>
-                    </div>
-                    <div id="finaf-collapse" class="panel-collapse collapse show" aria-labelledby="finaf-heading">
-                      <div class="panel-body">
+                <div class="accordion" id="finaf-widget" aria-multiselectable="true">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="finaf-heading">
+                      <button
+                        class="accordion-button accordion"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#finaf-collapse"
+                        aria-expanded="true"
+                        aria-controls="finaf-collapse"
+                        id="finaf-header-button"
+                      >
+                        <div>{{header}}</div>
+                      </button>
+                    </h2>
+                    <div id="finaf-collapse" class="accordion-collapse collapse show" aria-labelledby="finaf-heading">
+                      <div class="accordion-body">
                         <div id="finaf-title-wrapper">
                           <div id="finaf-note">
                             <i class="fa-solid fa-circle-info"></i>{{noteText}}
@@ -67,7 +65,7 @@ const TITLEWINDOW = {
                           </div>
                         </div>
                       </div>
-                      <div id="finaf-search">
+                      <div v-if="hasRecords" id="finaf-search">
                         <a id="finaf-link" :href=natLibURL target="_blank">{{natLibText}}</a>
                       </div>
                     </div>
@@ -77,6 +75,9 @@ const TITLEWINDOW = {
       computed: {
         records () {
           return TITLEWINDOW.renderedTitles
+        },
+        hasRecords () {
+          return !!this.records && Object.keys(this.records).length > 0
         }
       },
       methods: {
