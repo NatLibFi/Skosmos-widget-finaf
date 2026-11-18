@@ -65,7 +65,7 @@ const TITLEWINDOW = {
                           </div>
                         </div>
                       </div>
-                      <div v-if="hasRecords" id="finaf-search">
+                      <div id="finaf-search">
                         <a id="finaf-link" :href=natLibURL target="_blank">{{natLibText}}</a>
                       </div>
                     </div>
@@ -75,9 +75,6 @@ const TITLEWINDOW = {
       computed: {
         records () {
           return TITLEWINDOW.renderedTitles
-        },
-        hasRecords () {
-          return !!this.records && Object.keys(this.records).length > 0
         }
       },
       methods: {
