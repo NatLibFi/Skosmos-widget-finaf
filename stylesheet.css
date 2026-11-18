@@ -2,6 +2,13 @@
   margin-top: 1rem;
 }
 
+#finaf-collapse .accordion-body {
+  padding: 0;
+  background-color: var(--secondary-light-color);
+  border-radius: 0;
+  border: none;
+}
+
 #finaf-heading .accordion-button {
   background-color: var(--white-color);
   padding-top: 0.5rem;
@@ -12,6 +19,7 @@
   font-weight: bold;
   font-size: 1.2rem;
   color: var(--dark-color);
+  border-radius: 0;
 }
 
 .finaf-column {
